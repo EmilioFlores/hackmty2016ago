@@ -5,6 +5,8 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 
+var timer_started = false;
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -130,7 +132,7 @@ function register(sender, text) {
 
 function createGame(sender) {
 
-    
+    timer_started = false;
     // POST A Server Daniel de create game
     /*
     request({
@@ -209,7 +211,7 @@ function joinGame(sender, text) {
 
 }
 
-var timer_started = false;
+
 // Envia a todos los jugadores del equipo de SENDER el movimiento que se hizo y cuantos han votado por ese movimiento
 function makeMove(sender, text) {
 
