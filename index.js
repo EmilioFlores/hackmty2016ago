@@ -235,7 +235,7 @@ function makeMove(sender, text) {
         
     })
     */
-    sendTextMessage(sender, "Movimientos en el turno: \n 1. " + move);
+    sendTextMessage(sender, "Movimientos en el turno: \n 1. " + move + " ● ● ●\n 2. c7 ● ●" );
 }
 
 function sendToAll(code, text) {
