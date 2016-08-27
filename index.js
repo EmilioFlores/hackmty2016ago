@@ -4,8 +4,11 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
-
+var wkhtmltoimage = require('wkhtmltoimage');
 var timer_started = false;
+var fs = require('fs');
+
+
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -52,6 +55,7 @@ app.post('/webhook/', function (req, res) {
             }
 
             if ( text.startsWith("#createGame") ) {
+                wkhtmltoimage.generate('http://google.com/', { pageSize: 'letter' }).pipe(fs.createWriteStream('out.jpg'));
                 createGame(sender);
                 continue;
             }
@@ -339,7 +343,7 @@ function sendGenericMessage(sender) {
 					"title": "First card",
 					"subtitle": "Element #1 of an hscroll",
 					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-					
+                    
 				}]
 			}
 		}
