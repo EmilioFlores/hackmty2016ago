@@ -43,9 +43,19 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
+
             if ( text.startsWith("#id"))  {
-                register(text, sender);
+                register(sender, text);
                 continue;
+            }
+
+            if ( text.startsWith("#createGame") ) {
+                createGame(sender);
+                continue;
+            }
+
+            if ( text.startsWith("#joinGame")) {
+                joinGame(sender, text);
             }
            sendTextMessage(sender, JSON.stringify(req.body)); 
            //sendTextMessage(sender, "Text fsidjfisdjfiasj, echo: " + text.substring(0, 200))
@@ -80,14 +90,15 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function register(name, sender) {
+function register(sender, text) {
     //#id emilio
     
     // POST A Server Daniel
 
     // remove the #id from the messege
-    name = name.substring(4);
-    sendTextMessage(sender,name);
+    let name = text.substring(4);
+    sendTextMessage(sender,"Registered as: " + name);
+    sendTextMessage(sender,"Create a game with the command: #createGame");
     
     /*
     request({
@@ -105,9 +116,59 @@ function register(name, sender) {
         }
     })
     */
-
 }
 
+
+function createGame(sender) {
+
+    
+    // POST A Server Daniel de create game
+    /*
+    request({
+        url: '',
+        method: 'POST',
+        json: {
+            recipient: name,
+            fbid :  sender 
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+        /// get game code
+    })
+    */
+    sendTextMessage(sender,"Game created. Share this code with your friends 43FET5H");
+}
+
+function joinGame(sender, text) {
+    // remove the #joinGame
+    let code = text.substring(10);
+
+    // POST A Server Daniel de joinGame
+    /*
+    request({
+        url: '',
+        method: 'POST',
+        json: {
+            fbid :  sender,
+            gamecode : code 
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+        /// get game code
+    })
+    */
+    sendTextMessage(sender,"Joined game 43FET5H as Emilio " );
+
+
+}
 
 function sendGenericMessage(sender) {
     let messageData = {
