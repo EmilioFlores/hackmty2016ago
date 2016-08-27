@@ -80,13 +80,13 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function register(name) {
+function register(name, sender) {
     //#id emilio
     
     // POST A Server Daniel
 
     // remove the #id from the messege
-    name = name.substring(3);
+    name = name.substring(4);
     sendTextMessage(sender,name);
     
     /*
