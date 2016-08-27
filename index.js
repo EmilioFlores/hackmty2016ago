@@ -43,6 +43,10 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
+            if ( text.startsWith("#id"))  {
+                register(text, sender);
+                continue;
+            }
            sendTextMessage(sender, JSON.stringify(req.body)); 
            //sendTextMessage(sender, "Text fsidjfisdjfiasj, echo: " + text.substring(0, 200))
         }
@@ -75,6 +79,35 @@ function sendTextMessage(sender, text) {
         }
     })
 }
+
+function register(name) {
+    //#id emilio
+    
+    // POST A Server Daniel
+
+    // remove the #id from the messege
+    name = name.substring(3);
+    sendTextMessage(sender,name);
+    
+    /*
+    request({
+        url: '',
+        method: 'POST',
+        json: {
+            recipient: name,
+            fbid :  sender 
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+    */
+
+}
+
 
 function sendGenericMessage(sender) {
     let messageData = {
