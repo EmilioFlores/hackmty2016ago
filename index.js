@@ -254,13 +254,14 @@ function makeMove(sender, text) {
     sendTextMessage(sender, "Valor de my_turn  " + my_turn + " y " + timer_started);
     if (my_turn && !timer_started ) {
         
-        timer_started = true;
-        // Accept moves of 
-        var start = Date.now();
-
-        // expecting something close to 500
-        setTimeout(function(){ sendTextMessage(sender, Date.now() - start);  timer_started = false; }, 5000);
         
+        timer_started = true;
+        sendTextMessage(esnder, "Started your turn");
+        setTimeout(function(){ sendTextMessage(sender, "Ended your turn");  timer_started = false; }, 10000);
+        
+    }
+    else {
+        sendTextMessage(sender, "IT IS YOUR TURN");
     }
 
     sendTextMessage(sender, "Movimientos en el turno: \n 1. " + move + " ● ● ●\n 2. c7 ● ●" );
