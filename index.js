@@ -56,6 +56,7 @@ app.post('/webhook/', function (req, res) {
 
             if ( text.startsWith("#joinGame")) {
                 joinGame(sender, text);
+                continue;
             }
            sendTextMessage(sender, JSON.stringify(req.body)); 
            //sendTextMessage(sender, "Text fsidjfisdjfiasj, echo: " + text.substring(0, 200))
@@ -98,7 +99,8 @@ function register(sender, text) {
     // remove the #id from the messege
     let name = text.substring(4);
     sendTextMessage(sender,"Registered as: " + name);
-    sendTextMessage(sender,"Create a game with the command: #createGame");
+    sendTextMessage(sender,"Create a game with the command: #createGame or joing an existing game with #joinGame CODE");
+
     
     /*
     request({
@@ -140,7 +142,8 @@ function createGame(sender) {
         /// get game code
     })
     */
-    sendTextMessage(sender,"Game created. Share this code with your friends 43FET5H");
+    sendTextMessage(sender,"Game created.");
+    sendTextMessage(sender,"Tell your friends to register with #id NAME and then #joinGame CODE");
 }
 
 function joinGame(sender, text) {
@@ -165,50 +168,22 @@ function joinGame(sender, text) {
         /// get game code
     })
     */
-    sendTextMessage(sender,"Joined game 43FET5H as Emilio " );
-
+    // when anyone joines the game
+    sendToAll(code,"Emilio has joined the game 43FET5H" );
+    sendTextMessage(sender, "Emilio has joined the gmae 43FET5H ");
 
 }
 
-function sendGenericMessage(sender) {
-    let messageData = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "First card",
-                    "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-                    "buttons": [{
-                        "type": "web_url",
-                        "url": "https://www.messenger.com",
-                        "title": "web url"
-                    }, {
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
-                    }],
-                }, {
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-                    "buttons": [{
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
-                    }],
-                }]
-            }
-        }
-    }
+function sendToAll(code, text) {
+
+    
+    // POST get all players from a game room
+    /*
     request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:token},
+        url: '',
         method: 'POST',
         json: {
-            recipient: {id:sender},
-            message: messageData,
+            gamecode : code 
         }
     }, function(error, response, body) {
         if (error) {
@@ -216,5 +191,13 @@ function sendGenericMessage(sender) {
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
         }
+        /// get game code
+        for(var i = 0; i < response.length; i++)
+        {
+            sendTextMessage(response[i], text); 
+        }
     })
+    */
+    
 }
+
