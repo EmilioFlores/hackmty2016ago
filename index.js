@@ -209,8 +209,10 @@ function joinGame(sender, text) {
 
 }
 
+var timer_started = false;
 // Envia a todos los jugadores del equipo de SENDER el movimiento que se hizo y cuantos han votado por ese movimiento
 function makeMove(sender, text) {
+
 
     let move = text.substring(6);
 
@@ -228,13 +230,38 @@ function makeMove(sender, text) {
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
         }
+
+        let myTurn = response.turn;
         let code = response.code;
         let color = response.color;
         let movements = response.movements;
         sendToTeam(code, color, movements);
+
+        if (my_turn && !timer_started ) {
+                
+                timer_started = true;
+                // Accept moves of 
+                var start = Date.now();
+
+                // expecting something close to 500
+                setTimeout(function(){ console.log(Date.now() - start); }, 300);
+                
+        }
         
     })
     */
+    var my_turn = true;
+    if (my_turn && !timer_started ) {
+        
+        timer_started = true;
+        // Accept moves of 
+        var start = Date.now();
+
+        // expecting something close to 500
+        setTimeout(function(){ console.log(Date.now() - start);  timer_started = false; }, 10000);
+        
+    }
+
     sendTextMessage(sender, "Movimientos en el turno: \n 1. " + move + " ● ● ●\n 2. c7 ● ●" );
 }
 
