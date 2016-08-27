@@ -58,6 +58,12 @@ app.post('/webhook/', function (req, res) {
                 joinGame(sender, text);
                 continue;
             }
+
+            if ( text.startsWith("#move")) {
+                makeMove(sender, text);
+                continue;
+            }
+
            sendTextMessage(sender, JSON.stringify(req.body)); 
            //sendTextMessage(sender, "Text fsidjfisdjfiasj, echo: " + text.substring(0, 200))
         }
@@ -142,8 +148,36 @@ function createGame(sender) {
         /// get game code
     })
     */
-    sendTextMessage(sender,"Game created.");
-    sendTextMessage(sender,"Tell your friends to register with #id NAME and then #joinGame CODE");
+    sendTextMessage(sender,"Game created. \n Tell your friends to register with #id NAME and then #joinGame CODE");
+}
+
+function startGame(sender) {
+
+
+    // POST Con el SENDER conseguir el CODE 
+    /*
+    request({
+        url: '',
+        method: 'POST',
+        json: {
+            recipient: name,
+            fbid :  sender 
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+        
+        // regresa de quien es el turno
+        sendToAll(CODE, "Game is starting");
+        sendToTeam(CODE, WHITE, "Your turn");
+        sendToTeam(CODE, BLACK, "Blacks's turn");
+        
+    })
+    */
+    sendTextMessage(sender, "El juego ha empezado. \n Es tu turno. ");
 }
 
 function joinGame(sender, text) {
@@ -165,11 +199,11 @@ function joinGame(sender, text) {
         } else if (response.body.error) {
             console.log('Error: ', response.body.error)
         }
-        /// get game code
+        /// get sender name
     })
     */
     // when anyone joines the game
-    sendToAll(code,"Emilio has joined the game 43FET5H" );
+    sendToAll(code,"NAME has joined the game 43FET5H" );
     sendTextMessage(sender, "Emilio has joined the gmae 43FET5H ");
 
 }
@@ -192,6 +226,37 @@ function sendToAll(code, text) {
             console.log('Error: ', response.body.error)
         }
         /// get game code
+        for(var i = 0; i < response.length; i++)
+        {
+            sendTextMessage(response[i], text); 
+        }
+    })
+    */
+    
+}
+
+
+
+
+function sendToAll(code,color, text) {
+
+    
+    // POST get all players from a game room
+    /*
+    request({
+        url: '',
+        method: 'POST',
+        json: {
+            gamecode : code,
+            color : color
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+        /// Lista de jugadores de COLOR en CODE
         for(var i = 0; i < response.length; i++)
         {
             sendTextMessage(response[i], text); 
