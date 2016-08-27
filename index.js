@@ -60,6 +60,7 @@ app.post('/webhook/', function (req, res) {
             }
 
             if ( text.startsWith("#move")) {
+                //#move e5
                 makeMove(sender, text);
                 continue;
             }
@@ -206,6 +207,35 @@ function joinGame(sender, text) {
     sendToAll(code,"NAME has joined the game 43FET5H" );
     sendTextMessage(sender, "Emilio has joined the gmae 43FET5H ");
 
+}
+
+// Envia a todos los jugadores del equipo de SENDER el movimiento que se hizo y cuantos han votado por ese movimiento
+function makeMove(sender, text) {
+
+    let move = text.substring(6);
+
+    /*
+    // Given a senders id, get the code of the active game and the color of the team and the movements in the current turn.
+    request({
+        url: '',
+        method: 'POST',
+        json: {
+            fbid :  sender 
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+        let code = response.code;
+        let color = response.color;
+        let movements = response.movements;
+        sendToTeam(code, color, movements);
+        
+    })
+    */
+    sendTextMessage(sender, "Movimientos en el turno: \n 1. " + move);
 }
 
 function sendToAll(code, text) {
