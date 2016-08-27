@@ -251,7 +251,7 @@ function makeMove(sender, text) {
     })
     */
     var my_turn = true;
-    sendTextMessage(sender, "Valor de my_turn  " + my_turn + " y " + timer_started);
+    sendTextMessage(sender, "Valor de my_turn  " + my_turn + " y " + !timer_started);
     if (my_turn && !timer_started ) {
         
         
