@@ -259,7 +259,7 @@ function makeMove(sender, text) {
         var start = Date.now();
 
         // expecting something close to 500
-        setTimeout(function(){ sendTextMessage(sender, console.log(Date.now() - start));  timer_started = false; }, 5000);
+        setTimeout(function(){ sendTextMessage(sender, Date.now() - start);  timer_started = false; }, 5000);
         
     }
 
