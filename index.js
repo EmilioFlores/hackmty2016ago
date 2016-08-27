@@ -258,7 +258,7 @@ function makeMove(sender, text) {
         
         
         timer_started = true;
-        sendTextMessage(esnder, "Started your turn");
+        sendTextMessage(sender, "Started your turn");
         setTimeout(function(){ sendTextMessage(sender, "Ended your turn");  timer_started = false; }, 10000);
         
     }
